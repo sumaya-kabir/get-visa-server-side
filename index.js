@@ -77,11 +77,11 @@ async function run() {
             //   res.status(403).send({message: 'Unauthorized Access'})
             // }
             let query = {};
-            // if(req.query.email) {
-            //   query = {
-            //     email: req.query.email
-            //   }
-            // }
+            if(req.query.serviceId) {
+              query = {
+                serviceId: req.query.serviceId
+              }
+            }
             const cursor = reviewCollection.find(query);
             const reviews = await cursor.toArray();
             res.send(reviews);
@@ -95,7 +95,7 @@ async function run() {
             res.send(reviews);
           })
     
-          app.post('/reviews', async (req, res) => {
+          app.post('/myreviews', async (req, res) => {
             const review = req.body;
             const result = await reviewCollection.insertOne(review);
             res.send(result);
