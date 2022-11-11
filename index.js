@@ -85,6 +85,14 @@ async function run() {
             const cursor = reviewCollection.find(query);
             const reviews = await cursor.toArray();
             res.send(reviews);
+          });
+
+          app.get('/reviews/:serviceId', async (req, res) => {
+            const id = req.params.id;
+            const query = {_id: ObjectId(id)};
+            const cursor = reviewCollection.find(query);
+            const reviews = await cursor.toArray();
+            res.send(reviews);
           })
     
           app.post('/reviews', async (req, res) => {
