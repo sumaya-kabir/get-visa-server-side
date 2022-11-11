@@ -62,6 +62,14 @@ async function run() {
             const services = await cursor.limit(3).toArray();
             res.send(services);
         });
+
+        app.post('/newService', async (req, res) => {
+            const newService = req.body;
+            const result = await serviceCollection.insertOne(newService);
+            res.send(result);
+          });
+
+
         app.get('/reviews', async(req, res) => {
             // const decoded = req.decoded;
             // console.log(decoded);
@@ -85,18 +93,18 @@ async function run() {
             res.send(result);
           });
     
-        //   app.patch('/reviews/:serviceId', verifyJWT, async (req, res) => {
-        //     const id = req.params.id;
-        //     const status = req.body.status;
-        //     const query = {_id: ObjectId(id)};
-        //     const updateDoc = {
-        //       $set:{
-        //         status: status
-        //       }
-        //     }
-        //     const result = await reviewCollection.updateOne(query, updateDoc);
-        //     res.send(result);
-        //   })
+          app.patch('/reviews/:serviceId', async (req, res) => {
+            const id = req.params.id;
+            const status = req.body.status;
+            const query = {_id: ObjectId(id)};
+            const updateDoc = {
+              $set:{
+                status: status
+              }
+            }
+            const result = await reviewCollection.updateOne(query, updateDoc);
+            res.send(result);
+          })
     
           app.delete('/reviews/:serviceId', async (req, res) => {
             const id = req.params.id;
