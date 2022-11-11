@@ -77,9 +77,9 @@ async function run() {
             //   res.status(403).send({message: 'Unauthorized Access'})
             // }
             let query = {};
-            if(req.query.serviceId) {
+            if(req.query.email) {
               query = {
-                serviceId: req.query.serviceId
+                email: req.query.email
               }
             }
             const cursor = reviewCollection.find(query);
